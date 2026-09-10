@@ -25,13 +25,15 @@ jobs:
           command: >-
             idf.py -DMOTOR_OUTPUT_ENABLED=${{ github.event.inputs.enable_output || '0' }}
             set-target esp32c3 build
+          path: motor-c3
 
       - name: Assemble self-contained flasher package
         run: python3 scripts/make_package.py
+        working-directory: motor-c3
 
       - name: Upload flasher artifact
         uses: actions/upload-artifact@v4
         with:
           name: motor-c3-flasher
-          path: dist/motor-c3-flasher/**
+          path: motor-c3/dist/motor-c3-flasher/**
           if-no-files-found: error
