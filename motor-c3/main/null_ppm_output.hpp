@@ -29,13 +29,13 @@ public:
     void set_pulse_us(uint32_t pulse_us) override
     {
         m_current_us = pulse_us;
-        ESP_LOGD(TAG, "[SIM] would emit %u us", pulse_us);
+        ESP_LOGD(TAG, "[SIM] would emit %" PRIu32 " us", pulse_us);
     }
 
     void go_safe() override
     {
         m_current_us = m_neutral_us;
-        ESP_LOGD(TAG, "[SIM] SAFE (%u us)", m_neutral_us);
+        ESP_LOGD(TAG, "[SIM] SAFE (%" PRIu32 " us)", m_neutral_us);
     }
 
     bool is_physical() const override { return false; }
