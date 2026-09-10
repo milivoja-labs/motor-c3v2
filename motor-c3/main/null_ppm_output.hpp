@@ -11,6 +11,7 @@
 
 #include "ppm_output.hpp"
 #include "esp_log.h"
+#include <inttypes.h>
 
 namespace motor {
 
@@ -20,7 +21,7 @@ public:
     {
         m_neutral_us = neutral_us;
         m_current_us = neutral_us;
-        ESP_LOGI(TAG, "Bench-safe output active — NO physical pin driven (neutral=%u us)",
+        ESP_LOGI(TAG, "Bench-safe output active — NO physical pin driven (neutral=%" PRIu32 " us)",
                  neutral_us);
         return true;
     }
