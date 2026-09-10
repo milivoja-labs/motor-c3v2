@@ -4,6 +4,7 @@
 #include "throttle_supervisor.hpp"
 
 #include <algorithm>
+#include <inttypes.h>
 
 #include "esp_log.h"
 #include "esp_timer.h"
@@ -62,7 +63,7 @@ void ThrottleSupervisor::log_requested(uint8_t throttle, uint16_t seq)
     if (is_safe_pulse(target, m_curve)) {
         ESP_LOGI(TAG, "Requested PPM = SAFE");
     } else {
-        ESP_LOGI(TAG, "Requested PPM = %u us (throttle=%u)", target, throttle);
+        ESP_LOGI(TAG, "Requested PPM = %" PRIu32 " us (throttle=%u)", target, throttle);
     }
 }
 
