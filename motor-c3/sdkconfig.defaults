@@ -1,0 +1,42 @@
+# =============================================================================
+#  sdkconfig.defaults — motor-side ESP32-C3
+#  After changing target or these values, DELETE sdkconfig and rebuild so
+#  Kconfig re-resolves the whole tree (never hand-patch individual symbols).
+# =============================================================================
+
+# --- Target ------------------------------------------------------------------
+CONFIG_IDF_TARGET="esp32c3"
+
+# --- Bluetooth / NimBLE — CENTRAL role ---------------------------------------
+CONFIG_BT_ENABLED=y
+CONFIG_BT_NIMBLE_ENABLED=y
+CONFIG_BT_NIMBLE_ROLE_CENTRAL=y
+CONFIG_BT_NIMBLE_ROLE_OBSERVER=y
+# This unit is not a peripheral/broadcaster:
+# CONFIG_BT_NIMBLE_ROLE_PERIPHERAL is not set
+# CONFIG_BT_NIMBLE_ROLE_BROADCASTER is not set
+
+# Pairing / bonding / encryption (matches a bonded, encrypted throttle link).
+CONFIG_BT_NIMBLE_SECURITY_ENABLE=y
+CONFIG_BT_NIMBLE_SM_LEGACY=y
+CONFIG_BT_NIMBLE_SM_SC=y
+CONFIG_BT_NIMBLE_NVS_PERSIST=y
+
+# --- Partition layout --------------------------------------------------------
+# BLE app is large; use the large single-app layout (includes an nvs partition
+# for bonding keys).
+CONFIG_PARTITION_TABLE_SINGLE_APP_LARGE=y
+
+# --- Timing ------------------------------------------------------------------
+# 1 ms tick so the 300 ms staleness / ramp timing is crisp on the single core.
+CONFIG_FREERTOS_HZ=1000
+
+# --- Console -----------------------------------------------------------------
+# Default UART console works with CH340/CP210x bridge boards (most C3 Minis).
+# If your board uses the C3's NATIVE USB (USB-Serial-JTAG), instead comment the
+# UART line and uncomment the USB line, then delete sdkconfig and rebuild:
+# CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG=y
+CONFIG_ESP_CONSOLE_UART_DEFAULT=y
+
+# --- Logging -----------------------------------------------------------------
+CONFIG_LOG_DEFAULT_LEVEL_INFO=y
